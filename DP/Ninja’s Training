@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+#include <vector>
+
+
+
+
+int help(int day, int last, vector<vector<int>> &points) {
+
+
+ vector<vector<int>> dp(day+1, vector<int>(4, -1));
+  // tabulation base case
+  dp[0][0] = max(points[0][1], points[0][2]);
+  dp[0][1] = max(points[0][0], points[0][2]);
+  dp[0][2] = max(points[0][0], points[0][1]);
+
+  
+
+  // base case
+  //   if(day==0)
+  //   {
+  //       int maxi=INT_MIN;
+  //     for(int i=0;i<3;i++)
+  //     {
+  //         if(i!=last)
+  //         maxi=max(maxi,points[0][i]);
+  //     }
+  //     return maxi;
+  //   }
+
+  if (dp[day][last] != -1)
+    return dp[day][last];
+
+//   int ans = INT_MIN;
+//   for (int i = 0; i < 3; i++) {
+//     if (i != last) {
+//       int p = points[day][i] + help(day - 1, i, points, dp);
+//       ans = max(ans, p);
+//     }
+//   }
+ int ans = INT_MIN;
+
+  for (int i = 1; i <= day; i++) 
+  {
+    
+    for (int i = 0; i < 4; i++) 
+    {
+      if (i != last) 
+      {
+        int p = points[day][i] + dp[day - 1][i];
+        ans = max(ans, p);
+      }
+    }
+  }
+
+   return dp[day][last] = ans;
+}
+
+int ninjaTraining(int n, vector<vector<int>> &points) {
+  // Write your code here.
+  // vector<vector<int>>dp;
+  // for(int i=0;i<n;i++)
+  // {
+  //     vector<int>temp;
+  //     for(int j=0;j<4;j++)
+  //     temp.push_back(-1);
+
+  //     dp[i].push_back(temp);
+  // }
+
+      vector<vector<int>dp(n,vector<int>(4,-1));
+      
+
+  return help(n - 1, 3, points);
+}
