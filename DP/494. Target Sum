@@ -1,0 +1,33 @@
+class Solution {
+public:
+
+int help(int index,vector<int>&nums,int target,int sum,vector<vector<int>>&dp)
+{
+    //base case
+    if(index==nums.size())
+    {
+        if(sum==target)  return 1;
+        else return 0;
+    }
+  if(dp[index][sum]!=-1 ) return dp[index][sum];
+  
+    //add
+    sum+=nums[index];
+    int add=help(index+1,nums,target,sum,dp);
+    sum-=nums[index];
+
+    //subtract
+    sum-=nums[index];
+    int sub=help(index+1,nums,target,sum,dp);
+
+    return dp[index][sum]=add+sub;
+}
+    int findTargetSumWays(vector<int>& nums, int target) {
+        int sum=0;
+
+        vector<vector<int>>dp(nums.size()+1,vector<int>(target+1,-1));
+
+        return help(0,nums,target,sum,dp);
+
+    }
+};
