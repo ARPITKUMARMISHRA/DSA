@@ -1,0 +1,53 @@
+class Solution {
+public:
+
+    bool help(int index,int sum,vector<int>&nums,vector<vector<int>>&dp)
+    {
+
+        //base case
+        if(index==0)
+        {
+           if(nums[index]==sum)
+           return true;
+           else
+           return false;
+        }
+
+        if(sum==0)
+        return true;
+        
+        if(dp[index][sum]!=-1) return dp[index][sum];
+
+        bool notpick=false,pick=false;
+        notpick=help(index-1,sum,nums,dp);
+
+        if(sum-nums[index]>=0)
+        pick=help(index-1,sum-nums[index],nums,dp);
+
+        if(notpick||pick)
+        dp[index][sum]=1;
+        else
+        dp[index][sum]=0;
+
+
+        return notpick||pick;
+
+        
+
+    }
+    bool canPartition(vector<int>& nums) {
+        
+        int sum=0;
+        for(int i=0;i<nums.size();i++)
+        sum+=nums[i];
+        
+        if(sum&1==1)
+        return false;
+
+        sum/=2;
+
+        vector<vector<int>>dp(nums.size(),vector<int>(sum+1,-1));
+
+        return help(nums.size()-1,sum,nums,dp);
+    }
+};
