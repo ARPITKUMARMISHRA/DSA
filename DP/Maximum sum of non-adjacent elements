@@ -1,0 +1,33 @@
+#include <bits/stdc++.h> 
+
+
+int help(int index,vector<int>nums,vector<int>&dp)
+{
+    if(dp[index]!=-1)
+    return dp[index];
+
+   if(index==0)
+   return nums[0];
+
+//    if(index==1)
+//    return max(nums[0],nums[index]);
+
+   if(index<0)
+   return 0;
+   
+    //pick cond
+    int pick=nums[index]+help(index-2,nums,dp);
+    //not pick cond
+    int notpick=help(index-1,nums,dp);
+
+    return dp[index]=max(pick,notpick);
+
+}
+
+int maximumNonAdjacentSum(vector<int> &nums){
+    // Write your code here.
+    vector<int>dp(nums.size(),-1);
+    return help(nums.size()-1,nums,dp);
+
+
+}
