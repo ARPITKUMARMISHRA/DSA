@@ -1,0 +1,28 @@
+class Solution
+{
+    long long int mod=1e9+7;
+    int help(vector<int>dp,int n)
+    {
+      dp[1]=1;
+      dp[2]=2;
+      
+    //   if(n==1||n==2)
+    //   return dp[n];
+      
+      for(int i=3;i<=n;i++)
+      dp[i]=((dp[i-1]%mod) +(dp[i-2]%mod))%mod;
+      
+      return dp[n];
+    }
+    public:
+    //Function to count number of ways to reach the nth stair.
+    int countWays(int n)
+    {
+        // your code here
+        
+        vector<int>dp(n+1,-1);
+        int ans= help(dp,n);
+        return ans;
+        
+    }
+};
