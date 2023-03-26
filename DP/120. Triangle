@@ -1,0 +1,30 @@
+class Solution {
+public:
+
+int help(int i,int j,vector<vector<int>>& triangle,vector<vector<int>>&dp)
+{
+    
+    int m=triangle.size();
+    int n=triangle[m-1].size();
+
+    //base case
+    if(i==m-1) return triangle[i][j];
+   
+    if(dp[i][j]!=-1) return dp[i][j];
+
+    int down=help(i+1,j,triangle,dp)+ triangle[i][j];
+    int downright=help(i+1,j+1,triangle,dp)+ triangle[i][j];
+    
+    int ans=min(down,downright) ;
+    return dp[i][j]=ans;
+     
+    }
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int m=triangle.size();
+        int n=triangle[m-1].size();
+          
+        vector<vector<int>>dp(m,vector<int>(n,-1));
+        return help(0,0,triangle,dp);
+
+    }
+};
